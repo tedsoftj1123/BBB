@@ -1,36 +1,45 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    id("org.springframework.boot") version "3.1.2"
-    id("io.spring.dependency-management") version "1.1.2"
-    kotlin("jvm") version "1.8.22"
-    kotlin("plugin.spring") version "1.8.22"
+    kotlin("jvm") version "1.9.0"
 }
 
-group = "com.example"
-version = "0.0.1-SNAPSHOT"
+subprojects {
+    group = "com.example"
+    version = "0.0.1-SNAPSHOT"
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-}
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs += "-Xjsr305=strict"
-        jvmTarget = "17"
+    apply {
+        plugin("org.jetbrains.kotlin.jvm")
+        version = "1.9.0"
     }
-}
 
-tasks.withType<Test> {
-    useJUnitPlatform()
+    apply {
+        plugin("org.jetbrains.kotlin.kapt")
+        version = "1.7.21"
+    }
+
+    tasks {
+        compileKotlin {
+            kotlinOptions {
+                freeCompilerArgs = listOf("-Xjsr305=strict")
+                jvmTarget = "17"
+            }
+        }
+
+        compileJava {
+            sourceCompatibility = JavaVersion.VERSION_17.majorVersion
+        }
+
+        test {
+            useJUnitPlatform()
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-reflect")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.4")
+    }
 }
