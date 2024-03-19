@@ -8,8 +8,8 @@ plugins {
     kotlin("plugin.jpa") version "1.9.22"
 }
 
-group = "org.example"
-version = "0.0.1-SNAPSHOT"
+group = "sch.dsm"
+version = "0.0.1"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -19,15 +19,24 @@ repositories {
     mavenCentral()
 }
 
+val kotestVersion = "5.8.0"
+val mockkVersion = "1.13.10"
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-security")
+    // web
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+    // persistence
     runtimeOnly("com.mysql:mysql-connector-j")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    // security
+    implementation("org.springframework.boot:spring-boot-starter-security")
+
+    // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion")
+    testImplementation("io.mockk:mockk:$mockkVersion")
 }
 
 tasks.withType<KotlinCompile> {
