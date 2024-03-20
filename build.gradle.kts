@@ -22,6 +22,11 @@ repositories {
 val kotestVersion = "5.8.0"
 val mockkVersion = "1.13.10"
 dependencies {
+    // kotlin for spring
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
+
     // web
     implementation("org.springframework.boot:spring-boot-starter-web")
 

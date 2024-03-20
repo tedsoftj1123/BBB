@@ -1,4 +1,4 @@
-package org.example.geupsick
+package sch.dsm.geupsick
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
